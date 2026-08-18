@@ -31,6 +31,15 @@ public class Documents {
         FAILED;
     }
 
+    public Documents(String name, DocumentStatus status, String s3Key, String fileHash, LocalDateTime createdAt, Users user) {
+        this.name = name;
+        this.status = status;
+        this.s3Key = s3Key;
+        this.fileHash = fileHash;
+        this.createdAt = createdAt;
+        this.user = user;
+    }
+
     public Documents(Long id) {
         this.id = id;
     }

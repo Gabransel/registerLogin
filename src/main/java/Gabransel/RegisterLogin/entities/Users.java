@@ -32,12 +32,11 @@ public class Users {
     public Users() {
     }
 
-    public Users(Set<UserRole> roles, String password, String email, String name, Long id) {
+    public Users(Set<UserRole> roles, String password, String email, String name) {
         this.roles = roles;
         this.password = password;
         this.email = email;
         this.name = name;
-        this.id = id;
     }
 
 
