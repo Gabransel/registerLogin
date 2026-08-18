@@ -1,12 +1,14 @@
 package Gabransel.RegisterLogin.entities;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_file")
-
+@EntityListeners(AuditingEntityListener.class)
 public class File {
 
     @Id
@@ -18,7 +20,8 @@ public class File {
     private String s3Key;
     private String fileHash;
     @Enumerated(EnumType.STRING)
-    private FileType fileType;
+    private FileType type;
+    @CreatedDate
     private LocalDateTime createdAt;
     @ManyToOne
     private User user;
@@ -39,13 +42,12 @@ public class File {
         IMAGE;
     }
 
-    public File(Long id, String name, FileStatus status, String s3Key, String fileHash, FileType fileType, User user) {
-        this.id = id;
+    public File(String name, String s3Key, String fileHash, FileType type, User user) {
         this.name = name;
-        this.status = status;
+        this.status = FileStatus.PENDING;
         this.s3Key = s3Key;
         this.fileHash = fileHash;
-        this.fileType = fileType;
+        this.type = type;
         this.user = user;
     }
 
@@ -92,20 +94,16 @@ public class File {
         this.fileHash = fileHash;
     }
 
-    public FileType getFileType() {
-        return fileType;
+    public FileType getType() {
+        return type;
     }
 
-    public void setFileType(FileType fileType) {
-        this.fileType = fileType;
+    public void setType(FileType type) {
+        this.type = type;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 
     public User getUser() {
