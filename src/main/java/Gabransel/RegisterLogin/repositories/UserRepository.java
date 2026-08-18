@@ -1,12 +1,12 @@
 package Gabransel.RegisterLogin.repositories;
 
-import Gabransel.RegisterLogin.entities.Users;
+import Gabransel.RegisterLogin.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UsersRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
-    Optional<Users> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 }

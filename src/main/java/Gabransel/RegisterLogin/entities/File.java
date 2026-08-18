@@ -5,44 +5,52 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_documents")
+@Table(name = "tb_file")
 
-public class Documents {
+public class File {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Enumerated(EnumType.STRING)
-    private DocumentStatus status;
+    private FileStatus status;
     private String s3Key;
     private String fileHash;
+    @Enumerated(EnumType.STRING)
+    private FileType fileType;
     private LocalDateTime createdAt;
     @ManyToOne
-    private Users user;
+    private User user;
 
-    public Documents(){
+    public File(){
     }
 
-    public enum DocumentStatus{
+
+    public enum FileStatus{
         PENDING,
         PROCESSING,
         PROCESSED,
         FAILED;
     }
 
-    public Documents(String name, DocumentStatus status, String s3Key, String fileHash, LocalDateTime createdAt, Users user) {
+    public enum FileType{
+        DOC,
+        IMAGE;
+    }
+
+    public File(Long id, String name, FileStatus status, String s3Key, String fileHash, FileType fileType, User user) {
+        this.id = id;
         this.name = name;
         this.status = status;
         this.s3Key = s3Key;
         this.fileHash = fileHash;
-        this.createdAt = createdAt;
+        this.fileType = fileType;
         this.user = user;
     }
 
-    public Documents(Long id) {
-        this.id = id;
-    }
+
+
 
     public Long getId() {
         return id;
@@ -60,11 +68,11 @@ public class Documents {
         this.name = name;
     }
 
-    public DocumentStatus getStatus() {
+    public FileStatus getStatus() {
         return status;
     }
 
-    public void setStatus(DocumentStatus status) {
+    public void setStatus(FileStatus status) {
         this.status = status;
     }
 
@@ -84,6 +92,14 @@ public class Documents {
         this.fileHash = fileHash;
     }
 
+    public FileType getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(FileType fileType) {
+        this.fileType = fileType;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -92,11 +108,11 @@ public class Documents {
         this.createdAt = createdAt;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

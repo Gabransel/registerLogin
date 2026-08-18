@@ -8,7 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_users")
 
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,10 @@ public class Users {
     }
 
 
-    public Users() {
+    public User() {
     }
 
-    public Users(Set<UserRole> roles, String password, String email, String name) {
+    public User(Set<UserRole> roles, String password, String email, String name) {
         this.roles = roles;
         this.password = password;
         this.email = email;
