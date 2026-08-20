@@ -1,0 +1,25 @@
+package Gabransel.RegisterLogin.exceptions;
+
+import Gabransel.RegisterLogin.dto.ErrorResponseDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.Instant;
+
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(EmailAlreadyExistException.class)
+    public ResponseEntity<ErrorResponseDto> handleEmailAlreadyExist(EmailAlreadyExistException ex) {
+        ErrorResponseDto body = new ErrorResponseDto(
+                 Instant.now().toString(),
+                 HttpStatus.CONFLICT.value(),
+                 "Conflict",
+                 ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+    }
+}
